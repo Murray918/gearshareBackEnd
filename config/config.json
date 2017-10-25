@@ -2,7 +2,7 @@
   "development": {
     "username": "kevinmurray",
     "password": null,
-    "database": "capstone",
+    "database": "capstonedb",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
