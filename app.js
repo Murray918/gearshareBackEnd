@@ -52,6 +52,25 @@ app.get ('/search/micropnones', (req, res) => {
  })
 })
 
+app.post('/createuser/andrew', (req, res) =>{
+    let first_name = 'Andrew'
+    let last_name = 'Murray'
+    let username = 'Murray918'
+    let password = '12345678'
+  const user = models.users.build({
+    first_name : first_name,
+    last_name : last_name,
+    username : username,
+    password : password
+  });
+  user.save().then(function(newUser) {
+    console.log(newUser.dataValues);
+  })
+    .then( (results) => {
+    res.json({status: 'success', 'data': results
+    })
+  })
+})
 
 
 
@@ -71,7 +90,7 @@ function createProduct(user_id, make, model, serial_number, description, power_s
     return newMicrophone.dataValues
   });
 }
-createProduct(6, 'sure', 'ksm27', '2393575jh', 'This is a studio microphone that could be used in live situaions.', 'phantom');
+createProduct(8, 'sure', 'ksm27', '2393575jh', 'This is a studio microphone that could be used in live situaions.', 'phantom');
 
 
 function listProducts() {
