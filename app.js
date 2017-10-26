@@ -2,7 +2,9 @@ const models = require("./models"),
   Sequelize = require("sequelize"),
   express = require("express"),
   bodyParser = require("body-parser");
-let app = express();
+  let app = express();
+  app.use(bodyParser.json())
+
 
 //boiler plate body parser can talk to the html and get it recieve it in app.js
 
@@ -10,6 +12,48 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 console.log("party party");
+
+app.get('/listusers', (req, res) => {
+  models.users.findAll().then(function(results) {
+  res.json({status: 'success', 'data': results
+  })
+ })
+})
+
+app.get('/listmicrophones', (req, res) => {
+  models.microphone.findAll().then(function(results) {
+  res.json({status: 'success', 'data': results
+  })
+ })
+})
+
+app.get ('/search/micropnones', (req, res) => {
+  // res.render('updatePage')
+  let make = 'sure'
+  models.microphone.findAll({
+    where : {make:make}
+  })
+    .then(function(results) {
+    res.json({status: 'success', 'data': results
+    })
+   })
+ })
+
+ app.post('/updateuser/:usename', (req, res) => {
+   let username = 'fluffykitty'
+   const userToUpdate = models.users.update({
+     first_name: 'The artist formerly known as Bailey',
+   },{
+     where: {username : username}
+   })
+   .then( (results) => {
+     res.json({status: 'success', 'data': results
+   })
+ })
+})
+
+
+
 
 //this creates the table for all the products
 function createProduct(user_id, make, model, serial_number, description, power_source) {
@@ -24,6 +68,7 @@ function createProduct(user_id, make, model, serial_number, description, power_s
   });
   microphone.save().then(newMicrophone => {
     console.log(newMicrophone.dataValues);
+    return newMicrophone.dataValues
   });
 }
 createProduct(6, 'sure', 'ksm27', '2393575jh', 'This is a studio microphone that could be used in live situaions.', 'phantom');

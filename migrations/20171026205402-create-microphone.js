@@ -14,7 +14,7 @@ module.exports = {
       make: {
         type: Sequelize.STRING
       },
-      modle: {
+      model: {
         type: Sequelize.STRING
       },
       serial_number: {
