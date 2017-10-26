@@ -12,23 +12,27 @@ app.use(bodyParser.urlencoded({ extended: false }));
 console.log("party party");
 
 //this creates the table for all the products
-function createProduct() {
-  const product = models.Product.build({
-    make: "Sure",
-    modelNum: "SM7B",
-    info: "this is a micrphpne spoken word"
-    // tags: ['mic', 'micrphpne', 'live']
+function createProduct(user_id, make, model, serial_number, description, power_source) {
+  console.log(models.microphone);
+  const microphone = models.microphone.build({
+      user_id : user_id,
+      make : make,
+      model : model,
+      serial_number : serial_number,
+      description : description,
+      power_source : power_source
   });
-  product.save().then(newProduct => {
-    console.log(newProduct.dataValues);
+  microphone.save().then(newMicrophone => {
+    console.log(newMicrophone.dataValues);
   });
 }
-// createProduct();
+createProduct(6, 'sure', 'ksm27', '2393575jh', 'This is a studio microphone that could be used in live situaions.', 'phantom');
+
 
 function listProducts() {
-  models.Product.findAll().then(function(products) {
-    products.forEach(function(product) {
-      console.log(product.dataValues);
+  model.microphones.findAll().then(function(microphones) {
+    microphones.forEach(function(microphones) {
+      console.log(microphones.dataValues);
     });
   });
 }
@@ -36,10 +40,10 @@ function listProducts() {
 // listProducts();
 
 function deleteProduct () {
-  models.Product.findById(3)
-    .then( (product) => {
-      console.log(product);
-      product.destroy()
+  model.microphones.findById(3)
+    .then( (microphones) => {
+      console.log(microphones);
+      microphones.destroy()
     })
 }
 
