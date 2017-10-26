@@ -3,6 +3,7 @@ const models = require("./models"),
   express = require("express"),
   bodyParser = require("body-parser");
 let app = express();
+const Project = Sequelize.import(__dirname + "/path/to/models/project")
 
 //boiler plate body parser can talk to the html and get it recieve it in app.js
 
@@ -33,7 +34,7 @@ function listProducts() {
   });
 }
 
-listProducts();
+// listProducts();
 
 function deleteProduct () {
   models.Product.findById(3)
@@ -43,7 +44,7 @@ function deleteProduct () {
     })
 }
 
-deleteProduct();
+// deleteProduct();
 
 function createUser() {
   const user = models.User.build({
@@ -89,7 +90,7 @@ function updateUser() {
     });
 }
 
-updateUser();
+// updateUser();
 
 function deleteUser (){
   models.User.findById(3)
@@ -101,7 +102,7 @@ function deleteUser (){
 
 // deleteUser();
 
-app.listen(3000, () => {
+app.listen(8080, () => {
   console.log("successfully started Express Application");
 });
 
@@ -116,3 +117,8 @@ process.on("SIGINT", () => {
     process.exit(0);
   }, 1000);
 });
+
+
+
+
+//pg_dump --data-only [dbname] > dump.sql

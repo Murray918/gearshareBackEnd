@@ -2,22 +2,22 @@
   "development": {
     "username": "kevinmurray",
     "password": null,
-    "database": "capstonedb",
+    "database": "gearsharedb",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "test": {
-    "username": "root",
+    "username": "kevinmurray",
     "password": null,
-    "database": "database_test",
+    "database": "gearsharedb",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "postgres"
   },
   "production": {
-    "username": "root",
+    "username": "kevinmurray",
     "password": null,
-    "database": "database_production",
+    "database": "gearsharedb",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "postgres"
   }
 }
