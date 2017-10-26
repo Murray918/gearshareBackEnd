@@ -3,7 +3,6 @@ const models = require("./models"),
   express = require("express"),
   bodyParser = require("body-parser");
 let app = express();
-const Project = Sequelize.import(__dirname + "/path/to/models/project")
 
 //boiler plate body parser can talk to the html and get it recieve it in app.js
 
@@ -46,12 +45,12 @@ function deleteProduct () {
 
 // deleteProduct();
 
-function createUser() {
-  const user = models.User.build({
-    name: "Sarah Shuey",
-    userName: "fluffyPuppy",
-    bio: "I like dogs you fool"
-    // tags: ['mic', 'micrphpne', 'live']
+function createUser(first_names, last_name, username, password) {
+  const user = models.users.build({
+    first_name : first_names,
+    last_name : last_name,
+    username : username,
+    password : password
   });
 
   user.save().then(function(newUser) {
@@ -59,10 +58,15 @@ function createUser() {
   });
 }
 
-// createUser();
+// createUser('Bailey', 'Bryant', 'fluffykitty', '12345678');
+// createUser('Sam', 'Kapila', 'uiqueen', '23456789');
+// createUser('Sarah', 'Shuey', 'alpha', '34567890');
+// createUser('Colton', 'Dowling', 'colot', '56787890');
+// createUser('Anthony', 'Silva', 'ajsilva', '12345678');
+
 
 function listUsers() {
-  models.User.findAll().then(function(users) {
+  models.users.findAll().then(function(users) {
     users.forEach(function(user) {
       console.log(user.dataValues);
     });
@@ -72,10 +76,10 @@ function listUsers() {
 listUsers();
 
 function updateUser() {
-  models.User
+  models.user
     .update(
       {
-        name: "Bailey Marie"
+        name: "The artist formerly known as Bailey"
       },
       {
         where: {
@@ -84,7 +88,7 @@ function updateUser() {
       }
     )
     .then(result => {
-      models.User.findById(1).then(user => {
+      models.user.findById(1).then(user => {
         // console.log(user);
       });
     });
@@ -93,7 +97,7 @@ function updateUser() {
 // updateUser();
 
 function deleteUser (){
-  models.User.findById(3)
+  models.user.findById(3)
     .then( (user) => {
       console.log(user);
       user.destroy()
