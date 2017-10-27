@@ -1,33 +1,43 @@
 const models = require("./models"),
   Sequelize = require("sequelize"),
   express = require("express"),
+  cors = require('cors'),
   bodyParser = require("body-parser");
   let app = express();
-  app.use(bodyParser.json())
+
+
+
+
 
 
 //boiler plate body parser can talk to the html and get it recieve it in app.js
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors());
 
 console.log("party party");
 
-app.get('/listusers', (req, res) => {
+app.get('/', function(req, res, next) {
+res.json({msg: 'This is CORS-enabled for all origins!'})
+})
+
+app.get('/listusers', (req, res, next) => {
   models.users.findAll().then(function(results) {
+  console.log('hello')
   res.json({status: 'success', 'data': results
   })
  })
 })
 
-app.get('/listmicrophones', (req, res) => {
+app.get('/listmicrophones', (req, res, next) => {
   models.microphone.findAll().then(function(results) {
   res.json({status: 'success', 'data': results
   })
  })
 })
 
-app.get ('/search/micropnones', (req, res) => {
+app.get ('/search/micropnones', (req, res, next) => {
   // res.render('updatePage')
   let make = 'sure'
   models.microphone.findAll({
@@ -39,7 +49,7 @@ app.get ('/search/micropnones', (req, res) => {
    })
  })
 
- app.post('/updateuser/:usename', (req, res) => {
+ app.post('/updateuser/:usename', (req, res, next) => {
    let username = 'fluffykitty'
    const userToUpdate = models.users.update({
      first_name: 'The artist formerly known as Bailey',
@@ -52,11 +62,11 @@ app.get ('/search/micropnones', (req, res) => {
  })
 })
 
-app.post('/createuser/andrew', (req, res) =>{
+app.post('/createuser/andrew', (req, res, next) =>{
     let first_name = 'Andrew'
     let last_name = 'Murray'
     let username = 'Murray918'
-    let password = '12345678'
+    let passwords = '12345678'
   const user = models.users.build({
     first_name : first_name,
     last_name : last_name,
@@ -176,6 +186,7 @@ function deleteUser (){
 
 app.listen(8080, () => {
   console.log("successfully started Express Application");
+  console.log('CORS-enabled web server listening on port 80')
 });
 
 process.on("SIGINT", () => {
