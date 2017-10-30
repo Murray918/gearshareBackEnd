@@ -37,11 +37,11 @@ app.get('/listmicrophones', (req, res, next) => {
  })
 })
 
-app.get ('/search/micropnones', (req, res, next) => {
+app.get ('/search/microphones', (req, res, next) => {
   // res.render('updatePage')
-  let make = 'sure'
+  // let make = 'sure'
   models.microphone.findAll({
-    where : {make:make}
+    where : { make : 'sure' }
   })
     .then(function(results) {
     res.json({status: 'success', 'data': results
@@ -62,11 +62,13 @@ app.get ('/search/micropnones', (req, res, next) => {
  })
 })
 
-app.post('/createuser/andrew', (req, res, next) =>{
-    let first_name = 'Andrew'
-    let last_name = 'Murray'
-    let username = 'Murray918'
-    let passwords = '12345678'
+app.post('/createuser', (req, res, next) =>{
+    console.log(req.body);
+    let first_name = req.body.first_name;
+    let last_name = req.body.last_name;
+    let username = req.body.username;
+    let password = req.body.password;
+
   const user = models.users.build({
     first_name : first_name,
     last_name : last_name,
