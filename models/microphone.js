@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
   var microphone = sequelize.define('microphone', {
     user_id: DataTypes.INTEGER,
     make: DataTypes.STRING,
-    modle: DataTypes.STRING,
+    model: DataTypes.STRING,
     serial_number: DataTypes.STRING,
     description: DataTypes.STRING,
     power_source: DataTypes.STRING
@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
     classMethods: {
       associate: function(models) {
         // associations can be defined here
+        microphone.belongsTo(models.users, {foreignKey: 'userId'});
       }
     }
   });

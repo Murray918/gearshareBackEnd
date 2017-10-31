@@ -37,17 +37,27 @@ app.get('/listmicrophones', (req, res, next) => {
  })
 })
 
-app.get ('/search/microphones', (req, res, next) => {
-  // res.render('updatePage')
-  // let make = 'sure'
-  models.microphone.findAll({
-    where : { make : 'sure' }
-  })
+app.get ('/microphone/:id', (req, res, next) => {
+  console.log('hello');
+  let id = parseInt(req.params.id);
+  console.log(req.params);
+  models.microphone.findById(id)
     .then(function(results) {
     res.json({status: 'success', 'data': results
     })
    })
  })
+
+ app.get ('/getuser/:id', (req, res, next) => {
+   console.log('hello');
+   let id = parseInt(req.params.id);
+   console.log(req.params);
+   models.users.findById(id)
+     .then(function(results) {
+     res.json({status: 'success', 'data': results
+     })
+    })
+  })
 
  app.post('/updateuser/:usename', (req, res, next) => {
    let username = 'fluffykitty'
@@ -102,41 +112,49 @@ function createProduct(user_id, make, model, serial_number, description, power_s
     return newMicrophone.dataValues
   });
 }
-createProduct(8, 'sure', 'ksm27', '2393575jh', 'This is a studio microphone that could be used in live situaions.', 'phantom');
+// createProduct(5, 'sure', 'ksm27', '2393575jh', 'This is a studio microphone that could be used in live situaions.', 'phantom');
+// createProduct(3, 'sure', 'sm58', '2684903ght', 'This is a live microphone for vocals.', 'passive')
+// createProduct(2, 'sennheiser', 'e835', '234525yhdf', 'This is a live dynamic vocal mic', 'passive')
+// createProduct(1, 'nuemann', 'tlm 102', '24358sdflwb', 'This is the holy grail of recording mics with a cardioid pattern.', 'power supply')
 
 
-function listProducts() {
-  model.microphones.findAll().then(function(microphones) {
-    microphones.forEach(function(microphones) {
-      console.log(microphones.dataValues);
-    });
-  });
-}
-
-// listProducts();
-
-function deleteProduct () {
-  model.microphones.findById(3)
-    .then( (microphones) => {
-      console.log(microphones);
-      microphones.destroy()
-    })
-}
+// function listProducts() {
+//   model.microphones.findAll().then(function(microphones) {
+//     microphones.forEach(function(microphones) {
+//       console.log(microphones.dataValues);
+//     });
+//   });
+// }
+//
+// function findit() {
+//   models.microphone.findById(4).then((r) =>{
+//      console.log('this is the one ', r)})
+// }
+// findit()
+// // listProducts();
+//
+// function deleteProduct () {
+//   model.microphones.findById(3)
+//     .then( (microphones) => {
+//       console.log(microphones);
+//       microphones.destroy()
+//     })
+// }
 
 // deleteProduct();
 
-function createUser(first_names, last_name, username, password) {
-  const user = models.users.build({
-    first_name : first_names,
-    last_name : last_name,
-    username : username,
-    password : password
-  });
-
-  user.save().then(function(newUser) {
-    console.log(newUser.dataValues);
-  });
-}
+// function createUser(first_names, last_name, username, password) {
+//   const user = models.users.build({
+//     first_name : first_names,
+//     last_name : last_name,
+//     username : username,
+//     password : password
+//   });
+//
+//   user.save().then(function(newUser) {
+//     console.log(newUser.dataValues);
+//   });
+// }
 
 // createUser('Bailey', 'Bryant', 'fluffykitty', '12345678');
 // createUser('Sam', 'Kapila', 'uiqueen', '23456789');
@@ -145,44 +163,44 @@ function createUser(first_names, last_name, username, password) {
 // createUser('Anthony', 'Silva', 'ajsilva', '12345678');
 
 
-function listUsers() {
-  models.users.findAll().then(function(users) {
-    users.forEach(function(user) {
-      console.log(user.dataValues);
-    });
-  });
-}
+// function listUsers() {
+//   models.users.findAll().then(function(users) {
+//     users.forEach(function(user) {
+//       console.log(user.dataValues);
+//     });
+//   });
+// }
 
-listUsers();
+// listUsers();
 
-function updateUser() {
-  models.user
-    .update(
-      {
-        name: "The artist formerly known as Bailey"
-      },
-      {
-        where: {
-          id: 1
-        }
-      }
-    )
-    .then(result => {
-      models.user.findById(1).then(user => {
-        // console.log(user);
-      });
-    });
-}
+// function updateUser() {
+//   models.user
+//     .update(
+//       {
+//         name: "The artist formerly known as Bailey"
+//       },
+//       {
+//         where: {
+//           id: 1
+//         }
+//       }
+//     )
+//     .then(result => {
+//       models.user.findById(1).then(user => {
+//         // console.log(user);
+//       });
+//     });
+// }
 
 // updateUser();
 
-function deleteUser (){
-  models.user.findById(3)
-    .then( (user) => {
-      console.log(user);
-      user.destroy()
-    })
-}
+// function deleteUser (){
+//   models.user.findById(3)
+//     .then( (user) => {
+//       console.log(user);
+//       user.destroy()
+//     })
+// }
 
 // deleteUser();
 
